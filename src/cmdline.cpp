@@ -15,7 +15,7 @@
 #include <boost/program_options/positional_options.hpp>
 #include <boost/throw_exception.hpp>
 
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 
 #include <string>
 #include <utility>
@@ -224,24 +224,24 @@ namespace boost { namespace program_options { namespace detail {
 
         if (m_additional_parser)
             style_parsers.push_back(
-                boost::bind(&cmdline::handle_additional_parser, this, _1));
+                boost::bind(&cmdline::handle_additional_parser, this, boost::placeholders::_1));
 
         if (m_style & allow_long)
             style_parsers.push_back(
-                boost::bind(&cmdline::parse_long_option, this, _1));
+                boost::bind(&cmdline::parse_long_option, this, boost::placeholders::_1));
 
         if ((m_style & allow_long_disguise))
             style_parsers.push_back(
-                boost::bind(&cmdline::parse_disguised_long_option, this, _1));
+                boost::bind(&cmdline::parse_disguised_long_option, this, boost::placeholders::_1));
 
         if ((m_style & allow_short) && (m_style & allow_dash_for_short))
             style_parsers.push_back(
-                boost::bind(&cmdline::parse_short_option, this, _1));
+                boost::bind(&cmdline::parse_short_option, this, boost::placeholders::_1));
 
         if ((m_style & allow_short) && (m_style & allow_slash_for_short))
-            style_parsers.push_back(boost::bind(&cmdline::parse_dos_option, this, _1));
+            style_parsers.push_back(boost::bind(&cmdline::parse_dos_option, this, boost::placeholders::_1));
 
-        style_parsers.push_back(boost::bind(&cmdline::parse_terminator, this, _1));
+        style_parsers.push_back(boost::bind(&cmdline::parse_terminator, this, boost::placeholders::_1));
 
         vector<option> result;
         vector<string>& args = m_args;

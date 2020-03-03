@@ -19,7 +19,7 @@
 #include <boost/program_options/detail/utf8_codecvt_facet.hpp>
 #include <boost/throw_exception.hpp>
 
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 
 using namespace std;
 
@@ -89,6 +89,7 @@ namespace boost {
     from_8_bit(const std::string& s, 
                const std::codecvt<wchar_t, char, std::mbstate_t>& cvt)
     {
+        using namespace boost::placeholders;
         return detail::convert<wchar_t>(
             s,                 
             boost::bind(&std::codecvt<wchar_t, char, mbstate_t>::in,
@@ -100,6 +101,7 @@ namespace boost {
     to_8_bit(const std::wstring& s, 
              const std::codecvt<wchar_t, char, std::mbstate_t>& cvt)
     {
+        using namespace boost::placeholders;
         return detail::convert<char>(
             s,                 
             boost::bind(&codecvt<wchar_t, char, mbstate_t>::out,

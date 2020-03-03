@@ -16,7 +16,7 @@
 #include <boost/program_options/environment_iterator.hpp>
 #include <boost/program_options/detail/convert.hpp>
 
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 #include <boost/throw_exception.hpp>
 
 #include <cctype>
@@ -75,12 +75,12 @@ namespace boost { namespace program_options {
             
             std::transform(opt.value.begin(), opt.value.end(),
                            back_inserter(result.value),
-                           boost::bind(from_utf8, _1));
+                           boost::bind(from_utf8, boost::placeholders::_1));
 
             std::transform(opt.original_tokens.begin(), 
                            opt.original_tokens.end(),
                            back_inserter(result.original_tokens),
-                           boost::bind(from_utf8, _1));
+                           boost::bind(from_utf8, boost::placeholders::_1));
             return result;
         }
     }
